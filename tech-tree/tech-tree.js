@@ -34,16 +34,21 @@
   var isMobile = window.matchMedia &&
     window.matchMedia('(max-width: 768px)').matches;
 
-  // 容器：插到 #header 之后（正文 .outer 之前），不改动主题模板
+  // 容器：优先插到 <main> 之前（Fluid 结构），兼容老主题 #header 之后
   var stage = document.getElementById('tech-tree');
   if (!stage) {
     stage = document.createElement('section');
     stage.id = 'tech-tree';
-    var anchor = document.getElementById('header');
-    if (anchor && anchor.parentNode) {
-      anchor.parentNode.insertBefore(stage, anchor.nextSibling);
+    var mainEl = document.querySelector('main');
+    if (mainEl) {
+      mainEl.parentNode.insertBefore(stage, mainEl);
     } else {
-      document.body.insertBefore(stage, document.body.firstChild);
+      var oldHeader = document.getElementById('header');
+      if (oldHeader && oldHeader.parentNode) {
+        oldHeader.parentNode.insertBefore(stage, oldHeader.nextSibling);
+      } else {
+        document.body.insertBefore(stage, document.body.firstChild);
+      }
     }
   }
 
@@ -59,7 +64,7 @@
   }
 
   var stageW = stage.clientWidth || 1000;
-  var stageH = stage.clientHeight || 520;
+  var stageH = stage.clientHeight || 700;
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   renderer.setSize(stageW, stageH);
   renderer.domElement.style.display = 'block';
@@ -67,11 +72,27 @@
   renderer.domElement.style.height = '100%';
   stage.appendChild(renderer.domElement);
 
+  // 首屏标题层：网站名 + slogan（取自 Fluid 导航标题与 banner 副标题，读不到用兜底文案）
+  var brandEl = document.querySelector('.navbar-brand strong');
+  var sloganEl = document.getElementById('subtitle');
+  var heroTitle = brandEl ? brandEl.textContent.trim() : 'fenglongtian-Blog';
+  var heroSlogan = sloganEl ? sloganEl.getAttribute('data-typed-text') : '前端工程师 · 持续构建中的个人小站';
+  var hero = document.createElement('div');
+  hero.className = 'tt-hero';
+  var heroH1 = document.createElement('h1');
+  heroH1.textContent = heroTitle;
+  var heroP = document.createElement('p');
+  heroP.textContent = heroSlogan;
+  hero.appendChild(heroH1);
+  hero.appendChild(heroP);
+  stage.appendChild(hero);
+
   var scene = new THREE.Scene();
   var camera = new THREE.PerspectiveCamera(50, stageW / stageH, 0.1, 100);
   camera.position.set(0, 0.4, 14.2);
 
   var treeGroup = new THREE.Group();
+  treeGroup.position.y = -0.8; // 整体下移，给顶部标题层让出空间
   scene.add(treeGroup);
 
   // ===================== 光晕贴图（复用） =====================
