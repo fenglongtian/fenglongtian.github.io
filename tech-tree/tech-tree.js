@@ -88,11 +88,13 @@
   stage.appendChild(hero);
 
   var scene = new THREE.Scene();
-  var camera = new THREE.PerspectiveCamera(50, stageW / stageH, 0.1, 100);
-  camera.position.set(0, 0.4, 14.2);
+  scene.fog = new THREE.FogExp2(0x050a16, 0.016);
+  var camera = new THREE.PerspectiveCamera(55, stageW / stageH, 0.1, 120);
+  var baseCamZ = isMobile ? 21.5 : 20.5;
+  camera.position.set(0, 0.4, baseCamZ);
 
   var treeGroup = new THREE.Group();
-  treeGroup.position.y = -0.8; // 整体下移，给顶部标题层让出空间
+  treeGroup.position.y = -0.6; // 整体下移，给顶部标题层让出空间
   scene.add(treeGroup);
 
   // ===================== 光晕贴图（复用） =====================
@@ -110,13 +112,13 @@
   })();
 
   // ===================== 布局 =====================
-  var R1 = 4.2, R2 = 7.0;
+  var R1 = 5.2, R2 = 9.5, R3 = 11.8;
   var N = DATA.branches.length;
   var nodes = [];      // { name, level, pos, color, mesh, sprite, baseScale, delay, phase }
   var edges = [];      // { curve, line, mat, pulses: [{mesh, phase, speed}] }
   var pickables = [];  // 射线拾取列表
 
-  function makeNode(name, level, pos, color, baseScale, delay) {
+  function makeNode(name, level, pos, color, baseScale, delay, pickable) {
     var geo = new THREE.SphereGeometry(baseScale, 24, 24);
     var mat = new THREE.MeshBasicMaterial({ color: color });
     var mesh = new THREE.Mesh(geo, mat);
@@ -132,7 +134,7 @@
       depthWrite: false
     });
     var sprite = new THREE.Sprite(sMat);
-    var glowSize = level === 0 ? baseScale * 5 : level === 1 ? baseScale * 4 : baseScale * 3.2;
+    var glowSize = level === 0 ? baseScale * 7 : level === 1 ? baseScale * 4.5 : baseScale * 3.4;
     sprite.scale.set(glowSize, glowSize, 1);
 
     mesh.add(sprite);
@@ -144,13 +146,21 @@
       delay: delay, phase: Math.random() * Math.PI * 2
     };
     nodes.push(node);
-    pickables.push(mesh);
+    if (pickable !== false) pickables.push(mesh);
     return node;
   }
 
   // 根节点
   var rootPos = new THREE.Vector3(0, 0, 0);
-  var root = makeNode(DATA.root, 0, rootPos, 0xffd98a, 0.42, 0);
+  var root = makeNode(DATA.root, 0, rootPos, 0xffd98a, 0.5, 0);
+
+  // 根节点中心大辉光（视觉焦点，呼吸明暗）
+  var coreGlow = new THREE.Sprite(new THREE.SpriteMaterial({
+    map: glowTex, color: 0xffd98a, transparent: true, opacity: 0.22,
+    blending: THREE.AdditiveBlending, depthWrite: false
+  }));
+  coreGlow.scale.set(11, 11, 1);
+  treeGroup.add(coreGlow);
 
   // 一级分支 + 叶子
   DATA.branches.forEach(function (b, i) {
@@ -160,7 +170,7 @@
       Math.sin(ang) * R1 * 0.62,
       (i % 2 === 0 ? 1.2 : -1.2)
     );
-    var branch = makeNode(b.name, 1, bPos, b.color, 0.28, 0.35 + i * 0.08);
+    var branch = makeNode(b.name, 1, bPos, b.color, 0.32, 0.35 + i * 0.08);
 
     addEdge(root, branch, b.color, 0.28);
 
@@ -172,8 +182,19 @@
         bPos.z + (j - 1) * 0.9
       );
       var leafColor = new THREE.Color(b.color).lerp(new THREE.Color(0xffffff), 0.35);
-      var leaf = makeNode(cn, 2, lPos, leafColor.getHex(), 0.17, 0.7 + i * 0.08 + j * 0.07);
+      var leaf = makeNode(cn, 2, lPos, leafColor.getHex(), 0.19, 0.7 + i * 0.08 + j * 0.07);
       addEdge(branch, leaf, b.color, 0.18);
+
+      // 三级远景微光点（仅桌面），让树冠更繁茂，不可拾取、无标签
+      if (!isMobile) {
+        var gPos = new THREE.Vector3(
+          Math.cos(leafAng) * R3,
+          Math.sin(leafAng) * R3 * 0.62,
+          lPos.z + (j - 1) * 0.6
+        );
+        var ghost = makeNode('', 3, gPos, leafColor.getHex(), 0.08, 0.95 + i * 0.08 + j * 0.07, false);
+        addEdge(leaf, ghost, b.color, 0.08);
+      }
     });
   });
 
@@ -192,7 +213,7 @@
     var pulses = [];
     var pulseCount = isMobile ? 1 : 2;
     for (var k = 0; k < pulseCount; k++) {
-      var pGeo = new THREE.SphereGeometry(0.07, 12, 12);
+      var pGeo = new THREE.SphereGeometry(0.09, 12, 12);
       var pMat = new THREE.MeshBasicMaterial({
         color: 0xffffff, transparent: true, opacity: 0.9,
         blending: THREE.AdditiveBlending, depthWrite: false
@@ -208,10 +229,10 @@
   // ===================== 背景星尘 =====================
   var stars;
   (function () {
-    var count = isMobile ? 120 : 260;
+    var count = isMobile ? 160 : 480;
     var pos = new Float32Array(count * 3);
     for (var i = 0; i < count; i++) {
-      var r = 11 + Math.random() * 8;
+      var r = 14 + Math.random() * 12;
       var th = Math.random() * Math.PI * 2;
       var ph = Math.acos(2 * Math.random() - 1);
       pos[i * 3] = r * Math.sin(ph) * Math.cos(th);
@@ -221,11 +242,34 @@
     var geo = new THREE.BufferGeometry();
     geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
     var mat = new THREE.PointsMaterial({
-      map: glowTex, color: 0x8899bb, size: 0.12, transparent: true, opacity: 0.7,
+      map: glowTex, color: 0x8899bb, size: 0.1, transparent: true, opacity: 0.7,
       sizeAttenuation: true, depthWrite: false, blending: THREE.AdditiveBlending, alphaTest: 0.01
     });
     stars = new THREE.Points(geo, mat);
     scene.add(stars);
+  })();
+
+  // ===================== 远景星云 =====================
+  var nebulas = [];
+  (function () {
+    var palette = [0x2a3f7a, 0x3a2a6a, 0x1f5a6a, 0x4a3a7a];
+    var count = isMobile ? 2 : 4;
+    for (var i = 0; i < count; i++) {
+      var m = new THREE.SpriteMaterial({
+        map: glowTex, color: palette[i % palette.length],
+        transparent: true, opacity: 0.16,
+        blending: THREE.AdditiveBlending, depthWrite: false
+      });
+      var s = new THREE.Sprite(m);
+      var ang = (i / count) * Math.PI * 2;
+      var rr = 9 + Math.random() * 4;
+      s.position.set(Math.cos(ang) * rr, Math.sin(ang) * rr * 0.7, -8 - Math.random() * 4);
+      var size = 18 + Math.random() * 12;
+      s.scale.set(size, size, 1);
+      s.userData = { phase: Math.random() * Math.PI * 2, baseY: s.position.y };
+      scene.add(s);
+      nebulas.push(s);
+    }
   })();
 
   // ===================== 标签 =====================
@@ -304,13 +348,17 @@
     lastTs = now;
     var t = (now - start) / 1000;
 
-    // 整体自转 + 视差
+    // 整体自转 + 视差 + 星云缓漂
     if (!reducedMotion) {
-      treeGroup.rotation.y += dt * 0.12;
-      stars.rotation.y += dt * 0.02;
+      treeGroup.rotation.y += dt * 0.08;
+      stars.rotation.y += dt * 0.015;
+      nebulas.forEach(function (n) {
+        n.position.y = n.userData.baseY + Math.sin(t * 0.1 + n.userData.phase) * 0.4;
+      });
     }
     camera.position.x += (camTarget.x - camera.position.x) * 0.05;
     camera.position.y += (0.4 + camTarget.y - camera.position.y) * 0.05;
+    camera.position.z += (baseCamZ + Math.sin(t * 0.15) * 0.6 - camera.position.z) * 0.05;
     camera.lookAt(0, 0, 0);
 
     // 节点生长 + 呼吸
@@ -322,6 +370,12 @@
       var glowOpacity = 0.25 + 0.3 * p;
       n.sprite.material.opacity = glowOpacity;
     });
+
+    // 根节点中心辉光呼吸
+    if (!reducedMotion) {
+      coreGlow.material.opacity = 0.18 + 0.06 * Math.sin(t * 1.2);
+      coreGlow.scale.setScalar(11 + Math.sin(t * 1.2) * 0.6);
+    }
 
     // 连线淡入 + 脉冲光点
     edges.forEach(function (e, ei) {

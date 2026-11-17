@@ -14,7 +14,7 @@
   height: 100vh;
   height: 100svh;
   overflow: hidden;
-  background: radial-gradient(ellipse at 50% 28%, #13213d 0%, #070d1a 58%, #04070f 100%);
+  background: radial-gradient(ellipse at 50% 40%, #1a2447 0%, #0a1128 52%, #04070f 100%);
 }
 
 #tech-tree canvas {
