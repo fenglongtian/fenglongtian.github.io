@@ -328,6 +328,98 @@
     }
   })();
 
+  // ===================== 宇宙观：多层轨道与行星 =====================
+  var orbits = [];
+  (function () {
+    var orbitCfg = [
+      { r: 7.2, tilt: 0.35, color: 0x88bbff, speed: 0.25, moons: 1 },
+      { r: 9.2, tilt: -0.5, color: 0xffcc88, speed: -0.18, moons: 2 },
+      { r: 11.2, tilt: 0.7, color: 0xb088ff, speed: 0.12, moons: 1 }
+    ];
+    orbitCfg.forEach(function (c) {
+      var grp = new THREE.Group();
+      var pts = [];
+      for (var i = 0; i <= 90; i++) {
+        var a = i / 90 * Math.PI * 2;
+        pts.push(new THREE.Vector3(Math.cos(a) * c.r, 0, Math.sin(a) * c.r));
+      }
+      grp.add(new THREE.Line(
+        new THREE.BufferGeometry().setFromPoints(pts),
+        new THREE.LineBasicMaterial({
+          color: c.color, transparent: true, opacity: 0.28,
+          blending: THREE.AdditiveBlending, depthWrite: false
+        })
+      ));
+      grp.rotation.x = c.tilt;
+      grp.rotation.z = c.tilt * 0.5;
+      var moons = [];
+      for (var m = 0; m < c.moons; m++) {
+        var moon = new THREE.Sprite(new THREE.SpriteMaterial({
+          map: glowTex, color: c.color, transparent: true, opacity: 0.9,
+          blending: THREE.AdditiveBlending, depthWrite: false
+        }));
+        var sz = 0.5 + Math.random() * 0.25;
+        moon.scale.set(sz, sz, 1);
+        grp.add(moon);
+        moons.push({ sprite: moon, ang: Math.random() * Math.PI * 2,
+          r: c.r, speed: c.speed * (0.8 + Math.random() * 0.4) });
+      }
+      world.add(grp);
+      orbits.push({ group: grp, moons: moons });
+    });
+  })();
+
+  // ===================== 宇宙观：银河带 =====================
+  var milkyWay;
+  (function () {
+    var count = isMobile ? 300 : 700;
+    var pos = new Float32Array(count * 3);
+    for (var i = 0; i < count; i++) {
+      var a = Math.random() * Math.PI * 2;
+      var r = Math.pow(Math.random(), 0.5) * 13;
+      pos[i * 3] = Math.cos(a) * r;
+      pos[i * 3 + 1] = (Math.random() - 0.5) * 2.2;
+      pos[i * 3 + 2] = Math.sin(a) * r;
+    }
+    var geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    milkyWay = new THREE.Points(geo, new THREE.PointsMaterial({
+      map: glowTex, color: 0xaabbee, size: 0.12, transparent: true, opacity: 0.6,
+      blending: THREE.AdditiveBlending, depthWrite: false, alphaTest: 0.01
+    }));
+    milkyWay.rotation.set(0.9, 0.2, 0.4);
+    milkyWay.position.y = 1;
+    scene.add(milkyWay);
+  })();
+
+  // ===================== 宇宙观：流星 =====================
+  var meteors = [];
+  function resetMeteor(m) {
+    m.wait = 3 + Math.random() * 6;
+    m.life = 0;
+    m.sprite.material.opacity = 0;
+    m.start = new THREE.Vector3((Math.random() - 0.5) * 22, 6 + Math.random() * 4, -6 - Math.random() * 6);
+    m.dir = new THREE.Vector3(
+      -(Math.sign(m.start.x) || 1) * (0.6 + Math.random() * 0.6),
+      -(0.8 + Math.random() * 0.5), 0
+    ).normalize();
+    m.sprite.position.copy(m.start);
+  }
+  (function () {
+    var count = isMobile ? 2 : 4;
+    for (var i = 0; i < count; i++) {
+      var s = new THREE.Sprite(new THREE.SpriteMaterial({
+        map: glowTex, color: 0xffffff, transparent: true, opacity: 0,
+        blending: THREE.AdditiveBlending, depthWrite: false
+      }));
+      s.scale.set(1.4, 0.4, 1);
+      scene.add(s);
+      var m = { sprite: s, life: 0, wait: Math.random() * 6, start: null, dir: new THREE.Vector3() };
+      resetMeteor(m);
+      meteors.push(m);
+    }
+  })();
+
   // ===================== 标签 =====================
   var label = document.createElement('div');
   label.className = 'tt-label';
@@ -426,6 +518,27 @@
         f.sprite.material.opacity = Math.sin(f.u * Math.PI) * 0.9;
       });
     });
+
+    // 宇宙观：行星运行、银河旋转、流星
+    if (!reducedMotion) {
+      orbits.forEach(function (o) {
+        o.moons.forEach(function (m) {
+          m.ang += dt * m.speed;
+          m.sprite.position.set(Math.cos(m.ang) * m.r, 0, Math.sin(m.ang) * m.r);
+        });
+      });
+      milkyWay.rotation.y += dt * 0.02;
+      meteors.forEach(function (m) {
+        if (m.wait > 0) {
+          m.wait -= dt;
+          return;
+        }
+        m.life += dt;
+        m.sprite.position.addScaledVector(m.dir, 14 * dt);
+        m.sprite.material.opacity = Math.sin(Math.min(m.life / 1.2, 1) * Math.PI) * 0.9;
+        if (m.life > 1.4 || m.sprite.position.y < -6) resetMeteor(m);
+      });
+    }
 
     // 相机视差 + 缓慢呼吸
     camera.position.x += (camTarget.x - camera.position.x) * 0.05;
