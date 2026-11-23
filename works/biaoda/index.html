@@ -32,7 +32,7 @@
 <meta property="og:image" content="http://fenglongtian.github.io/works/biaoda/img/health.png">
 <meta property="og:image" content="http://fenglongtian.github.io/works/biaoda/img/mine.png">
 <meta property="article:published_time" content="2026-11-23T04:00:00.000Z">
-<meta property="article:modified_time" content="2026-11-23T14:30:58.361Z">
+<meta property="article:modified_time" content="2026-11-23T14:59:36.271Z">
 <meta property="article:author" content="fenglongtian">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://fenglongtian.github.io/works/biaoda/img/home.png">
@@ -295,10 +295,16 @@
   .works-card ul { margin: 0; padding-left: 1.1rem; }
   .works-card li { margin: .25rem 0; }
   .preview-btn {
-    display: inline-block; margin-top: .9rem; padding: .55rem 1.4rem;
+    display: inline-block; margin-top: .9rem; margin-right: .6rem; padding: .55rem 1.4rem;
     border-radius: 999px; font-weight: 600; color: #1a1408;
     background: linear-gradient(135deg, #ffd27a, #e8a94e);
     box-shadow: 0 8px 24px rgba(232,169,78,.35); text-decoration: none;
+  }
+  .repo-btn {
+    display: inline-block; margin-top: .9rem; padding: .55rem 1.4rem;
+    border-radius: 999px; font-weight: 600; color: #e9eefc;
+    background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18);
+    text-decoration: none;
   }
   .live-frame-wrap { margin: 1rem 0; border-radius: 18px; overflow: hidden;
     border: 1px solid rgba(255,255,255,.12); background: #0d1018; }
@@ -315,7 +321,20 @@
     <span>Vue 3</span><span>TypeScript</span><span>Pinia</span><span>Vite</span>
     <span>Capacitor</span><span>Node.js</span><span>Express</span><span>BLE 蓝牙</span>
   </div>
-  <a class="preview-btn" href="/works/biaoda/app/" target="_blank" rel="noopener">▶ 在线预览（新标签打开）</a>
+  <a class="preview-btn" href="/works/biaoda/app/" target="_blank" rel="noopener">▶ 在线预览</a>
+  <a class="repo-btn" href="https://github.com/fenglongtian/biaoda-pro" target="_blank" rel="noopener">
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align:-2px;margin-right:4px"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+    源代码仓库
+  </a>
+</div>
+
+<h2 id="代码仓库"><a href="#代码仓库" class="headerlink" title="代码仓库"></a>代码仓库</h2><div class="works-card">
+  <ul>
+    <li><strong>完整源码（前端 + 后端 + 文档）</strong>：<a href="https://github.com/fenglongtian/biaoda-pro" target="_blank" rel="noopener">https://github.com/fenglongtian/biaoda-pro</a></li>
+    <li><strong>前端目录 <code>web/</code></strong>：Vue 3 + TypeScript + Vite，含演示 Mock 层（<code>src/services/mock.ts</code>）</li>
+    <li><strong>后端目录 <code>server/</code></strong>：Node.js + Express，JWT 鉴权、JSON 持久层、接口级单测</li>
+    <li><strong>文档目录 <code>docs/</code></strong>：API、合规清单、商业化方案、创作者计划</li>
+  </ul>
 </div>
 
 <h2 id="在线预览（可直接交互）"><a href="#在线预览（可直接交互）" class="headerlink" title="在线预览（可直接交互）"></a>在线预览（可直接交互）</h2><div class="live-frame-wrap">
