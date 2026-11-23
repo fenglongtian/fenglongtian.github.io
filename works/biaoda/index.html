@@ -32,7 +32,7 @@
 <meta property="og:image" content="http://fenglongtian.github.io/works/biaoda/img/health.png">
 <meta property="og:image" content="http://fenglongtian.github.io/works/biaoda/img/mine.png">
 <meta property="article:published_time" content="2026-11-23T04:00:00.000Z">
-<meta property="article:modified_time" content="2026-11-23T15:23:40.622Z">
+<meta property="article:modified_time" content="2026-11-23T16:14:51.409Z">
 <meta property="article:author" content="fenglongtian">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://fenglongtian.github.io/works/biaoda/img/home.png">
@@ -318,8 +318,8 @@
   <h2 style="margin:0;">表达 · Biaoda Pro（智能手表伴侣）</h2>
   <p class="sub">面向智能手表场景从零设计的可运行、可扩展、可交付全栈应用 —— 不是静态 Demo，前后端一起跑就是一条完整业务闭环。</p>
   <div class="works-tags">
-    <span>Vue 3</span><span>TypeScript</span><span>Pinia</span><span>Vite</span>
-    <span>Capacitor</span><span>Node.js</span><span>Express</span><span>BLE 蓝牙</span>
+    <span>Vue 3</span><span>React 19</span><span>TypeScript</span><span>Vite</span>
+    <span>Pinia</span><span>Zustand</span><span>Capacitor</span><span>Node.js</span><span>Express</span><span>BLE 蓝牙</span>
   </div>
   <a class="preview-btn" href="/works/biaoda/app/" target="_blank" rel="noopener">▶ 在线预览</a>
   <a class="repo-btn" href="https://github.com/fenglongtian/biaoda-pro" target="_blank" rel="noopener">
@@ -331,8 +331,9 @@
 <h2 id="代码仓库"><a href="#代码仓库" class="headerlink" title="代码仓库"></a>代码仓库</h2><div class="works-card">
   <ul>
     <li><strong>完整源码（前端 + 后端 + 文档）</strong>：<a href="https://github.com/fenglongtian/biaoda-pro" target="_blank" rel="noopener">https://github.com/fenglongtian/biaoda-pro</a></li>
-    <li><strong>前端目录 <code>web/</code></strong>：Vue 3 + TypeScript + Vite，含演示 Mock 层（<code>src/services/mock.ts</code>）</li>
-    <li><strong>后端目录 <code>server/</code></strong>：Node.js + Express，JWT 鉴权、JSON 持久层、接口级单测</li>
+    <li><strong>前端目录 <code>web/</code>（Vue 版）</strong>：Vue 3 + TypeScript + Pinia + Vue Router + Vite，含演示 Mock 层（<code>src/services/mock.ts</code>）</li>
+    <li><strong>前端目录 <code>web-react/</code>（React 版）</strong>：React 19 + TypeScript + React Router 7 + Zustand + Vite，与 Vue 版页面/路由/状态/Mock 完全对齐，共用同一后端</li>
+    <li><strong>后端目录 <code>server/</code></strong>：Node.js + Express，JWT 鉴权、JSON 持久层、接口级单测，两套前端共用</li>
     <li><strong>文档目录 <code>docs/</code></strong>：API、合规清单、商业化方案、创作者计划</li>
   </ul>
 </div>
@@ -344,8 +345,9 @@
 
 <h2 id="项目背景"><a href="#项目背景" class="headerlink" title="项目背景"></a>项目背景</h2><p>参考主流智能手表伴侣产品的功能与交互，按现代工程体系从零设计。同一套前端代码可打包 Web &#x2F; iOS &#x2F; Android，原生能力通过 Capacitor 桥接；后端采用可替换的持久层，便于从 JSON 平滑迁移到 PG&#x2F;MySQL。</p>
 <h2 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h2><ul>
-<li><strong>前端</strong>：Vue 3 + TypeScript + Pinia + Vue Router + Vite，Capacitor 提供 BLE 蓝牙、通知权限与后台常驻</li>
-<li><strong>后端</strong>：Node.js 20 + Express，JWT 鉴权，JSON 原子持久层（可替换为 PG&#x2F;MySQL）</li>
+<li><strong>前端（Vue 版，<code>web/</code>）</strong>：Vue 3 + TypeScript + Pinia + Vue Router + Vite，Capacitor 提供 BLE 蓝牙、通知权限与后台常驻</li>
+<li><strong>前端（React 版，<code>web-react/</code>）</strong>：React 19 + TypeScript + React Router 7 + Zustand + Vite，与 Vue 版页面&#x2F;路由&#x2F;状态&#x2F;Mock 完全对齐</li>
+<li><strong>后端</strong>：Node.js 20 + Express，JWT 鉴权，JSON 原子持久层（可替换为 PG&#x2F;MySQL），两套前端共用同一后端</li>
 <li><strong>工程</strong>：Vite 代理、环境变量分环境、<code>node --watch</code> 开发热更、接口级单测</li>
 </ul>
 <h2 id="核心功能（真实接口闭环）"><a href="#核心功能（真实接口闭环）" class="headerlink" title="核心功能（真实接口闭环）"></a>核心功能（真实接口闭环）</h2><div class="works-card">
@@ -379,7 +381,7 @@
 <h2 id="运行方式"><a href="#运行方式" class="headerlink" title="运行方式"></a>运行方式</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 后端（默认 8787）</span><br><span class="hljs-built_in">cd</span> server &amp;&amp; npm install &amp;&amp; npm run dev<br><span class="hljs-comment"># 前端（默认 5179，/api 自动代理到 8787）</span><br><span class="hljs-built_in">cd</span> web &amp;&amp; npm install &amp;&amp; npm run dev<br></code></pre></td></tr></table></figure>
 
 <p>开发环境短信验证码通过 <code>POST /api/auth/sms-code</code> 响应中的 <code>devCode</code> 获取，无需真实短信通道。</p>
-<h2 id="源代码仓库"><a href="#源代码仓库" class="headerlink" title="源代码仓库"></a>源代码仓库</h2><p>完整前后端源码（前端 <code>web/</code>、后端 <code>server/</code>、文档 <code>docs/</code>）已开源：</p>
+<h2 id="源代码仓库"><a href="#源代码仓库" class="headerlink" title="源代码仓库"></a>源代码仓库</h2><p>完整前后端源码（Vue 版前端 <code>web/</code>、React 版前端 <code>web-react/</code>、后端 <code>server/</code>、文档 <code>docs/</code>）已开源：</p>
 <p><strong>GitHub：<a target="_blank" rel="noopener" href="https://github.com/fenglongtian/biaoda-pro">https://github.com/fenglongtian/biaoda-pro</a></strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> https://github.com/fenglongtian/biaoda-pro.git<br></code></pre></td></tr></table></figure>
 
