@@ -32,7 +32,7 @@
 <meta property="og:image" content="http://fenglongtian.github.io/works/biaoda/img/health.png">
 <meta property="og:image" content="http://fenglongtian.github.io/works/biaoda/img/mine.png">
 <meta property="article:published_time" content="2026-11-23T04:00:00.000Z">
-<meta property="article:modified_time" content="2026-11-23T12:59:53.745Z">
+<meta property="article:modified_time" content="2026-11-23T14:30:58.361Z">
 <meta property="article:author" content="fenglongtian">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://fenglongtian.github.io/works/biaoda/img/home.png">
@@ -294,6 +294,18 @@
   .works-card h3 { margin: 0 0 .5rem; font-size: 1.05rem; }
   .works-card ul { margin: 0; padding-left: 1.1rem; }
   .works-card li { margin: .25rem 0; }
+  .preview-btn {
+    display: inline-block; margin-top: .9rem; padding: .55rem 1.4rem;
+    border-radius: 999px; font-weight: 600; color: #1a1408;
+    background: linear-gradient(135deg, #ffd27a, #e8a94e);
+    box-shadow: 0 8px 24px rgba(232,169,78,.35); text-decoration: none;
+  }
+  .live-frame-wrap { margin: 1rem 0; border-radius: 18px; overflow: hidden;
+    border: 1px solid rgba(255,255,255,.12); background: #0d1018; }
+  .live-frame { display: block; width: 100%; height: 720px; border: 0; background: #0d1018; }
+  .frame-bar { display:flex; align-items:center; justify-content:space-between;
+    padding: .55rem 1rem; font-size: .85rem; color:#9aa6c0; background: rgba(255,255,255,.04); }
+  .frame-bar a { color: #ffd27a; text-decoration: none; }
 </style>
 
 <div class="works-hero">
@@ -303,6 +315,12 @@
     <span>Vue 3</span><span>TypeScript</span><span>Pinia</span><span>Vite</span>
     <span>Capacitor</span><span>Node.js</span><span>Express</span><span>BLE 蓝牙</span>
   </div>
+  <a class="preview-btn" href="/works/biaoda/app/" target="_blank" rel="noopener">▶ 在线预览（新标签打开）</a>
+</div>
+
+<h2 id="在线预览（可直接交互）"><a href="#在线预览（可直接交互）" class="headerlink" title="在线预览（可直接交互）"></a>在线预览（可直接交互）</h2><div class="live-frame-wrap">
+  <div class="frame-bar"><span>表达 Biaoda Pro · 实时前端页面</span><a href="/works/biaoda/app/" target="_blank" rel="noopener">新标签全屏打开 ↗</a></div>
+  <iframe class="live-frame" src="/works/biaoda/app/" loading="lazy" title="表达 Biaoda Pro 在线预览"></iframe>
 </div>
 
 <h2 id="项目背景"><a href="#项目背景" class="headerlink" title="项目背景"></a>项目背景</h2><p>参考主流智能手表伴侣产品的功能与交互，按现代工程体系从零设计。同一套前端代码可打包 Web &#x2F; iOS &#x2F; Android，原生能力通过 Capacitor 桥接；后端采用可替换的持久层，便于从 JSON 平滑迁移到 PG&#x2F;MySQL。</p>
