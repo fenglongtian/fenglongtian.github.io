@@ -1,0 +1,45 @@
+/* 全息守护者 · 固定悬浮层（透明背景，不拦截点击） */
+#hologram {
+  position: fixed;
+  right: 2.5vw;
+  bottom: 7vh;
+  width: 240px;
+  height: 360px;
+  z-index: 30;
+  pointer-events: none;
+  /* 与宇宙风一致的淡入，避免首屏突兀 */
+  animation: hologram-fade 0.8s ease both;
+  filter: drop-shadow(0 0 18px rgba(102, 220, 255, 0.25));
+}
+
+#hologram canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+#hologram.is-mobile {
+  width: 132px;
+  height: 200px;
+  right: 3vw;
+  bottom: 5vh;
+  opacity: 0.9;
+}
+
+/* 窄屏且横屏时再收一点，避免遮挡正文 */
+@media (max-width: 768px) and (orientation: landscape) {
+  #hologram {
+    width: 110px;
+    height: 168px;
+    opacity: 0.8;
+  }
+}
+
+/* 尊重系统“减少动态”，去掉容器自身动画 */
+@media (prefers-reduced-motion: reduce) {
+  #hologram { animation: none; }
+}
+
+@keyframes hologram-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
