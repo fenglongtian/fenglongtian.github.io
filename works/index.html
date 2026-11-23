@@ -19,27 +19,23 @@
   <meta name="author" content="fenglongtian">
   <meta name="keywords" content="">
   
-    <meta name="description" content=".works-hero {     margin: 0 0 1.2rem;     padding: 1.4rem 1.5rem;     border-radius: 14px;     background: linear-gradient(135deg, rgba(255,200,102,.12), rgba(127,155,255,.10));     border: 1px sol">
+    <meta name="description" content=".pf-hero {     margin: 0 0 1.4rem; padding: 1.3rem 1.5rem; border-radius: 14px;     background: linear-gradient(135deg, rgba(255,200,102,.12), rgba(127,155,255,.10));     border: 1px solid rgba(255">
 <meta property="og:type" content="website">
-<meta property="og:title" content="作品 · 表达 Biaoda Pro">
+<meta property="og:title" content="作品集">
 <meta property="og:url" content="http://fenglongtian.github.io/works/index.html">
 <meta property="og:site_name" content="fenglongtian-Blog">
-<meta property="og:description" content=".works-hero {     margin: 0 0 1.2rem;     padding: 1.4rem 1.5rem;     border-radius: 14px;     background: linear-gradient(135deg, rgba(255,200,102,.12), rgba(127,155,255,.10));     border: 1px sol">
+<meta property="og:description" content=".pf-hero {     margin: 0 0 1.4rem; padding: 1.3rem 1.5rem; border-radius: 14px;     background: linear-gradient(135deg, rgba(255,200,102,.12), rgba(127,155,255,.10));     border: 1px solid rgba(255">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://fenglongtian.github.io/works/img/home.png">
-<meta property="og:image" content="http://fenglongtian.github.io/works/img/dials.png">
-<meta property="og:image" content="http://fenglongtian.github.io/works/img/diy.png">
-<meta property="og:image" content="http://fenglongtian.github.io/works/img/health.png">
-<meta property="og:image" content="http://fenglongtian.github.io/works/img/mine.png">
+<meta property="og:image" content="http://fenglongtian.github.io/works/biaoda/img/dials.png">
 <meta property="article:published_time" content="2026-11-23T04:00:00.000Z">
-<meta property="article:modified_time" content="2026-11-23T12:36:50.982Z">
+<meta property="article:modified_time" content="2026-11-23T12:55:21.848Z">
 <meta property="article:author" content="fenglongtian">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://fenglongtian.github.io/works/img/home.png">
+<meta name="twitter:image" content="http://fenglongtian.github.io/works/biaoda/img/dials.png">
   
   
   
-  <title>作品 · 表达 Biaoda Pro - fenglongtian-Blog</title>
+  <title>作品集 - fenglongtian-Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -234,7 +230,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="作品 · 表达 Biaoda Pro"></span>
+            <span id="subtitle" data-typed-text="作品集"></span>
           
         </div>
 
@@ -265,83 +261,51 @@
 
 <article class="page-content">
   <style>
-  .works-hero {
-    margin: 0 0 1.2rem;
-    padding: 1.4rem 1.5rem;
-    border-radius: 14px;
+  .pf-hero {
+    margin: 0 0 1.4rem; padding: 1.3rem 1.5rem; border-radius: 14px;
     background: linear-gradient(135deg, rgba(255,200,102,.12), rgba(127,155,255,.10));
     border: 1px solid rgba(255,255,255,.08);
   }
-  .works-hero .sub { color: #b8c2d9; margin: .4rem 0 0; font-size: .95rem; }
-  .works-tags { margin: .8rem 0 0; }
-  .works-tags span {
-    display: inline-block; margin: .2rem .3rem .2rem 0; padding: .15rem .6rem;
-    font-size: .8rem; border-radius: 999px;
+  .pf-hero .sub { color: #b8c2d9; margin: .4rem 0 0; font-size: .95rem; }
+  .pf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.2rem; margin-top: 1.2rem; }
+  .pf-card {
+    display: block; border-radius: 16px; overflow: hidden; text-decoration: none;
+    border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.03);
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  .pf-card:hover {
+    transform: translateY(-4px); border-color: rgba(255,200,102,.5);
+    box-shadow: 0 14px 34px rgba(0,0,0,.4);
+  }
+  .pf-card .cover { width: 100%; aspect-ratio: 16/10; object-fit: cover; display: block; }
+  .pf-card .body { padding: .9rem 1rem 1.1rem; }
+  .pf-card .ttl { margin: 0; font-size: 1.08rem; color: #e8edf7; }
+  .pf-card .desc { margin: .35rem 0 .6rem; font-size: .86rem; color: #9aa6c0; line-height: 1.5; }
+  .pf-card .tags span {
+    display: inline-block; margin: .15rem .25rem .15rem 0; padding: .1rem .5rem;
+    font-size: .74rem; border-radius: 999px;
     background: rgba(127,155,255,.16); color: #cdd8f5;
   }
-  .works-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin: 1rem 0; }
-  .works-grid figure { margin: 0; text-align: center; }
-  .works-grid img {
-    width: 100%; max-width: 300px; border-radius: 16px; display: block; margin: 0 auto;
-    border: 1px solid rgba(255,255,255,.1);
-    box-shadow: 0 10px 30px rgba(0,0,0,.35);
-  }
-  .works-grid figcaption { margin-top: .5rem; font-size: .85rem; color: #9aa6c0; }
-  .works-card {
-    border-radius: 12px; padding: 1rem 1.2rem; margin: .8rem 0;
-    background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06);
-  }
-  .works-card h3 { margin: 0 0 .5rem; font-size: 1.05rem; }
-  .works-card ul { margin: 0; padding-left: 1.1rem; }
-  .works-card li { margin: .25rem 0; }
 </style>
 
-<div class="works-hero">
-  <h2 style="margin:0;">表达 · Biaoda Pro（智能手表伴侣）</h2>
-  <p class="sub">基于对土曼 ToMoon「表达」App 的功能逆向分析，重做的可运行、可扩展、可交付全栈应用 —— 不是静态 Demo，前后端一起跑就是一条完整业务闭环。</p>
-  <div class="works-tags">
-    <span>Vue 3</span><span>TypeScript</span><span>Pinia</span><span>Vite</span>
-    <span>Capacitor</span><span>Node.js</span><span>Express</span><span>BLE 蓝牙</span>
-  </div>
+<div class="pf-hero">
+  <h2 style="margin:0;">作品集</h2>
+  <p class="sub">前端 / 全栈 / 跨端方向的可运行项目，每个作品含背景、技术栈、功能闭环与界面展示。</p>
 </div>
 
-<h2 id="项目背景"><a href="#项目背景" class="headerlink" title="项目背景"></a>项目背景</h2><p>对原 App <code>com.tomoon.launcher</code>（土曼 ToMoon「表达」）进行功能逆向分析后，按现代工程体系从零重做。同一套前端代码可打包 Web &#x2F; iOS &#x2F; Android，原生能力通过 Capacitor 桥接；后端采用可替换的持久层，便于从 JSON 平滑迁移到 PG&#x2F;MySQL。</p>
-<h2 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h2><ul>
-<li><strong>前端</strong>：Vue 3 + TypeScript + Pinia + Vue Router + Vite，Capacitor 提供 BLE 蓝牙、通知权限与后台常驻</li>
-<li><strong>后端</strong>：Node.js 20 + Express，JWT 鉴权，JSON 原子持久层（可替换为 PG&#x2F;MySQL）</li>
-<li><strong>工程</strong>：Vite 代理、环境变量分环境、<code>node --watch</code> 开发热更、接口级单测</li>
-</ul>
-<h2 id="核心功能（真实接口闭环）"><a href="#核心功能（真实接口闭环）" class="headerlink" title="核心功能（真实接口闭环）"></a>核心功能（真实接口闭环）</h2><div class="works-card">
-  <h3>一条完整链路</h3>
-  <ul>
-    <li>手机号 + 短信验证码登录注册，JWT 签发与 401 自动拦截</li>
-    <li>表盘商城：14 个表盘、官方/创作者/收藏/我的分类、风格与排序筛选、搜索</li>
-    <li>下单扣币、虚拟币原子扣减、订单幂等、推送手表、退款全部走真实接口</li>
-    <li>健康数据（步数/心率/睡眠/血糖）按用户与日期归并上云，支持 7 天趋势</li>
-    <li>创作者中心：上传作品、收益分成；模拟设备模式由 Mock 驱动，生产切 BLE 插件无需改页面</li>
-  </ul>
+<div class="pf-grid">
+
+  <!-- 作品卡片：复制这一整块并替换链接、封面、标题、描述、标签即可新增作品 -->
+  <a class="pf-card" href="biaoda/">
+    <img class="cover" src="biaoda/img/dials.png" srcset="/img/loading.gif" lazyload alt="表达 Biaoda Pro">
+    <div class="body">
+      <h3 class="ttl">表达 · Biaoda Pro</h3>
+      <p class="desc">基于土曼 ToMoon「表达」逆向重做的智能手表伴侣，Vue 3 + Node 全栈，登录、表盘商城、下单扣币、健康上云完整闭环。</p>
+      <div class="tags"><span>Vue 3</span><span>TypeScript</span><span>Node.js</span><span>Capacitor</span></div>
+    </div>
+  </a>
+
 </div>
-
-<h2 id="工程亮点"><a href="#工程亮点" class="headerlink" title="工程亮点"></a>工程亮点</h2><div class="works-card">
-  <ul>
-    <li><strong>设备驱动抽象</strong>：连接、同步、推送在 Mock 与 Capacitor BLE 之间可切换，页面层零改动</li>
-    <li><strong>数据一致性</strong>：虚拟币扣减与订单写入做原子处理，防止并发超扣与重复下单</li>
-    <li><strong>持久层可替换</strong>：JSON 原子落盘隔离在 store 层，接口不变即可切换关系型数据库</li>
-    <li><strong>跨端一套代码</strong>：响应式手机式界面，Web 与原生壳共用组件与状态管理</li>
-  </ul>
-</div>
-
-<h2 id="界面展示"><a href="#界面展示" class="headerlink" title="界面展示"></a>界面展示</h2><div class="works-grid">
-  <figure><img src="img/home.png" srcset="/img/loading.gif" lazyload alt="首页"><figcaption>首页：手表连接、今日概览、常用入口</figcaption></figure>
-  <figure><img src="img/dials.png" srcset="/img/loading.gif" lazyload alt="表盘市场"><figcaption>表盘市场：分类筛选与搜索</figcaption></figure>
-  <figure><img src="img/diy.png" srcset="/img/loading.gif" lazyload alt="DIY"><figcaption>DIY：表盘自定义创作</figcaption></figure>
-  <figure><img src="img/health.png" srcset="/img/loading.gif" lazyload alt="健康"><figcaption>健康：步数环、心率与血糖趋势</figcaption></figure>
-  <figure><img src="img/mine.png" srcset="/img/loading.gif" lazyload alt="我的"><figcaption>我的：订单、创作者中心与账号合规</figcaption></figure>
-</div>
-
-<h2 id="运行方式"><a href="#运行方式" class="headerlink" title="运行方式"></a>运行方式</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 后端（默认 8787）</span><br><span class="hljs-built_in">cd</span> server &amp;&amp; npm install &amp;&amp; npm run dev<br><span class="hljs-comment"># 前端（默认 5179，/api 自动代理到 8787）</span><br><span class="hljs-built_in">cd</span> web &amp;&amp; npm install &amp;&amp; npm run dev<br></code></pre></td></tr></table></figure>
-
-<p>开发环境短信验证码通过 <code>POST /api/auth/sms-code</code> 响应中的 <code>devCode</code> 获取，无需真实短信通道。</p>
 
 
   
